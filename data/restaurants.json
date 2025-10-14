@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Downtown Diner",
+    "cuisines": ["american"],
+    "menu_items": ["burger", "fries", "salad", "chicken nuggets"],
+    "price_level": 2,
+    "distance_miles": 1.2,
+    "estimated_wait_min": 12,
+    "capacity": 18,
+    "allergens_present": ["gluten"]
+  },
+  {
+    "name": "Sushi Sakura",
+    "cuisines": ["japanese", "seafood"],
+    "menu_items": ["sushi", "ramen", "tempura"],
+    "price_level": 3,
+    "distance_miles": 2.8,
+    "estimated_wait_min": 25,
+    "capacity": 12,
+    "allergens_present": ["fish", "shellfish"]
+  },
+  {
+    "name": "Green Bowl",
+    "cuisines": ["vegetarian", "vegan"],
+    "menu_items": ["tofu bowl", "salad", "smoothie"],
+    "price_level": 2,
+    "distance_miles": 3.5,
+    "estimated_wait_min": 10,
+    "capacity": 16,
+    "allergens_present": ["soy", "peanut"]
+  },
+  {
+    "name": "Burger Barn",
+    "cuisines": ["american"],
+    "menu_items": ["burger", "fries", "milkshake", "chicken nuggets"],
+    "price_level": 1,
+    "distance_miles": 2.0,
+    "estimated_wait_min": 15,
+    "capacity": 25,
+    "allergens_present": ["gluten", "dairy"]
+  }
+]
