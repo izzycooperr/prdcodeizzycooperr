@@ -197,50 +197,21 @@ def run_cli():
             continue
         break
 
-def ask_float(prompt, optional=False):
+def ask_value(prompt, min_v=1, max_v=4, optional=False):
     """
-    ask_float function
-    Summary:
-    Returns a float value representing a distance in miles.
-    Input:
-
-    prompt (str) - The text prompting the user to input data
-
-    optional (bool) - Determines if a prompt is optional
-
-    Output:
-
-    float | None - Can return a float value representing a distance in miles,
-    or nothing if optional and given no input
-    """
-    while True:
-        s = input(prompt).strip()
-        if optional and not s:
-            return None
-        try:
-            v = float(s)
-            if v > 30:
-                print("Distance too large. Please choose a number between 1–30 miles.")
-                continue
-            return v
-        except ValueError:
-            print("Please enter a valid number for distance.")
-
-def ask_int(prompt, min_v=1, max_v=4, optional=False):
-    """
-    ask_int function
+    ask_value function
     Summary: 
-    Returns an int value representing a distance in miles.
+    Returns an int value from user input.
 
     Input:
     
-    prompt (str) - The text prompting the user to input data
+    prompt (str) - The text prompting the user to input a value
 
     optional (bool) - Determines if a prompt is optional
 
     Output:
     
-    int | None - Can return an int value representing a distance in miles,
+    float | None - Can return an int value based on user input,
     or nothing if optional and given no input
     """
     while True:
@@ -285,10 +256,10 @@ def collect_users() -> list:
     Varies; determied by users; All optional
 
     name (str) - Name of user
-    dist (float | None) - Distance user is willing to drive
+    dist (float) - Distance user is willing to drive
     allergies (set) - Allergies of the user
     mode (str) - A user-inputted string of either "strict" or "flex"
-    strict | flex (int) - An integer of 1-4 representing "price level"
+    strict (float) - An integer of 1-4 representing "price level"
     cuisines (set) - A set of meal types ("seafood", "vegan", etc.)
     must (set) - Specific meal items that the user must have
 
@@ -297,18 +268,18 @@ def collect_users() -> list:
     the meal preferences of each user
     """
     users = []
-    n = ask_int("How many people (2–6)? ", 2, 6)
+    n = ask_value("How many people (2–6)? ", 2, 6)
     for i in range(n):
         print(f"\nPerson {i+1}:")
         name = input("  Name: ").strip() or f"Person{i+1}"
-        dist = ask_float("  Max distance (mi, Enter to skip): ", True)
+        dist = ask_value("  Max distance (mi, Enter to skip): ", 0, 30, True)
         allergies = ask_set("  Allergies (comma separated, Enter for none): ")
         mode = input("  Is your budget strict or flex? ").strip().lower()
         strict = flex = None
         if mode == "strict":
-            strict = ask_int("    Strict budget (1–4), 1 being cheap, 4 being expensive: ")
+            strict = ask_value("    Strict budget (1–4), 1 being cheap, 4 being expensive: ")
         elif mode == "flex":
-            flex = ask_int("    Preferred budget (1–4), 1 being cheap, 4 being expensive: ")
+            flex = ask_value("    Preferred budget (1–4), 1 being cheap, 4 being expensive: ")
         cuisines = ask_set("  Preferred cuisines (Enter to skip): ")
         must = ask_set("  Must-have items (Enter to skip): ")
         users.append(UserPrefs(name, dist, allergies, strict, cuisines, must, flex))
