@@ -195,6 +195,12 @@ def run_cli():
         if again == "y":
             excluded.add(ranked[0][0].name)
             continue
+        elif again == "n" and ranked:
+            show_menu = input("Alright! Glad to have found you a restaurant! Would you like to see the menu? (y/n): ").lower()
+            if show_menu == "y":
+                print("Menu Items:")
+                for mi in ranked[0][0].menu_items:
+                    print(f"{mi}")
         break
 
 def ask_value(prompt, min_v=1, max_v=4, optional=False):
