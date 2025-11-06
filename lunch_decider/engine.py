@@ -42,7 +42,8 @@ def violates_hard_constraints(r: Restaurant, users: List[UserPrefs]) -> Tuple[bo
 
     r (Restaurant) - The data of the restaurant that is being considered
 
-    users (List[UserPrefs]) - 
+    users (List[UserPrefs]) - A list of user preferences to be compared against
+    the qualities of the selected restaurant
 
     Output:
     
@@ -187,7 +188,7 @@ def run_cli():
             adjust = input("Adjust preferences? (y/n): ").lower()
             if adjust == "y":
                 adjust_preferences(users)
-                continue
+                break
             break
         print_recommendation(ranked, rejected)
         again = input("Not interested? Want to try a different restaurant? (y/n): ").lower()
@@ -201,10 +202,6 @@ def ask_float(prompt, optional=False):
     ask_float function
     Summary:
     Returns a float value representing a distance in miles.
-
-    Note: Use is extremely similar to ask_int. Can probably refactor to combine
-    and make more lightweight
-
     Input:
 
     prompt (str) - The text prompting the user to input data
@@ -234,9 +231,6 @@ def ask_int(prompt, min_v=1, max_v=4, optional=False):
     ask_int function
     Summary: 
     Returns an int value representing a distance in miles.
-
-    Note: Use is extremely similar to ask_float. Can probably refactor to combine
-    and make more lightweight
 
     Input:
     
@@ -296,9 +290,11 @@ def collect_users() -> list:
     mode (str) - A user-inputted string of either "strict" or "flex"
     strict | flex (int) - An integer of 1-4 representing "price level"
     cuisines (set) - A set of meal types ("seafood", "vegan", etc.)
-    must (set) - 
+    must (set) - Specific meal items that the user must have
 
     Output:
+    users (list) - A list of UserPrefs, which are made up of user-input values representing 
+    the meal preferences of each user
     """
     users = []
     n = ask_int("How many people (2–6)? ", 2, 6)
@@ -307,7 +303,7 @@ def collect_users() -> list:
         name = input("  Name: ").strip() or f"Person{i+1}"
         dist = ask_float("  Max distance (mi, Enter to skip): ", True)
         allergies = ask_set("  Allergies (comma separated, Enter for none): ")
-        mode = input("  Budget strict or flex? ").strip().lower()
+        mode = input("  Is your budget strict or flex? ").strip().lower()
         strict = flex = None
         if mode == "strict":
             strict = ask_int("    Strict budget (1–4), 1 being cheap, 4 being expensive: ")
